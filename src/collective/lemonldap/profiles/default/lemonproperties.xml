@@ -1,0 +1,4 @@
+<shibproperties>
+  <property name="HTTP_AUTH_FULLNAME" type="string">fullname</property>
+  <property name="HTTP_AUTH_EMAIL" type="string">email</property>
+</shibproperties>

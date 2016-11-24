@@ -1,0 +1,68 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:monkey="http://namespaces.plone.org/monkey"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="collective.lemonldap">
+
+  <include package="collective.monkeypatcher" file="meta.zcml" />
+  <include package="genericsetup.quickinstaller" />
+  <i18n:registerTranslations directory="locales" />
+
+  <five:registerPackage package="." initialize=".initialize" />
+  <includeDependencies package="." />
+
+  <include package=".browser" />
+
+  <monkey:patch
+    description="Add a new handy method to the PAS-pluginregistry"
+    class="Products.PluginRegistry.PluginRegistry.PluginRegistry"
+    replacement=".pluginregistry.movePluginsTop"
+    original="movePluginsTop"
+    docstringWarning="false"
+    ignoreOriginal="true"
+    />
+
+  <genericsetup:registerProfile
+      name="default"
+      title="collective.lemonldap"
+      directory="profiles/default"
+      description="Installs the collective.lemonldap add-on."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      post_handler=".setuphandlers.post_install"
+      />
+
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="collective.lemonldap (uninstall)"
+      directory="profiles/uninstall"
+      description="Uninstalls the collective.lemonldap add-on."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      post_handler=".setuphandlers.uninstall"
+      />
+
+  <utility
+      factory=".setuphandlers.HiddenProfiles"
+      name="collective.lemonldap-hiddenprofiles" />
+
+  <adapter factory=".exportimport.LemonLDAPPropertiesXMLAdapter"/>
+
+  <genericsetup:importStep
+      name="lemonldap-properties-settings-import"
+      title="LemonLDAP properties Settings Import"
+      description="Import properties for shibboleth properties setting"
+      handler=".exportimport.importLemonLDAPPropertiesSettings"
+      />
+
+  <adapter
+     factory=".exportimport.LemonLDAPUserPropertiesExportImport"
+     for=".pas.LemonLDAPManager"
+     provides="Products.GenericSetup.interfaces.IFilesystemImporter"/>
+
+  <adapter
+     factory=".exportimport.LemonLDAPUserPropertiesExportImport"
+     for=".pas.LemonLDAPManager"
+     provides="Products.GenericSetup.interfaces.IFilesystemExporter"/>
+
+</configure>
