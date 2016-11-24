@@ -1,6 +1,7 @@
 ====================
 collective.lemonldap
 ====================
+[![Build Status](https://travis-ci.org/IMIO/collective.lemonldap.png)](https://travis-ci.org/IMIO/collective.lemonldap)
 
 Add PluggableAuthService plugin to authenticate in Plone using LemonLDAP::NG (https://lemonldap-ng.org)
 
