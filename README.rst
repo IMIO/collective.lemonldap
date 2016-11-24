@@ -26,14 +26,8 @@ and then running ``bin/buildout``
 Contribute
 ----------
 
-- Issue Tracker: https://github.com/collective/collective.lemonldap/issues
-- Source Code: https://github.com/collective/collective.lemonldap
-
-
-Support
--------
-
-If you are having issues, please let us know.
+- Issue Tracker: https://github.com/IMIO/collective.lemonldap/issues
+- Source Code: https://github.com/IMIO/collective.lemonldap
 
 License
 -------
